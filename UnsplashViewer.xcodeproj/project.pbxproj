@@ -18,6 +18,10 @@
 		7414C484272F004800FFC899 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C483272F004800FFC899 /* FavoritesViewController.swift */; };
 		7414C486272F005D00FFC899 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C485272F005D00FFC899 /* DetailsViewController.swift */; };
 		7414C488272F00E200FFC899 /* CoordinatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C487272F00E200FFC899 /* CoordinatedViewController.swift */; };
+		74BEF594273064250068109E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF593273064250068109E /* UIView.swift */; };
+		74BEF596273066F30068109E /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF595273066F30068109E /* AppConfig.swift */; };
+		74BEF59827307C8D0068109E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF59727307C8D0068109E /* UIColor.swift */; };
+		74BEF59A273085240068109E /* DetailsInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF599273085240068109E /* DetailsInfoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +38,10 @@
 		7414C483272F004800FFC899 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		7414C485272F005D00FFC899 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		7414C487272F00E200FFC899 /* CoordinatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatedViewController.swift; sourceTree = "<group>"; };
+		74BEF593273064250068109E /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		74BEF595273066F30068109E /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		74BEF59727307C8D0068109E /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		74BEF599273085240068109E /* DetailsInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsInfoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,8 +76,10 @@
 			children = (
 				7414C47B272EFDC200FFC899 /* Navigation */,
 				7414C480272EFFE000FFC899 /* UI */,
+				74BEF5922730640C0068109E /* Extensions */,
 				7414C460272EFCD500FFC899 /* AppDelegate.swift */,
 				7414C462272EFCD500FFC899 /* SceneDelegate.swift */,
+				74BEF595273066F30068109E /* AppConfig.swift */,
 				7414C469272EFCDD00FFC899 /* Assets.xcassets */,
 				7414C46B272EFCDD00FFC899 /* LaunchScreen.storyboard */,
 				7414C46E272EFCDD00FFC899 /* Info.plist */,
@@ -94,8 +104,18 @@
 				7414C481272F003000FFC899 /* PhotosViewController.swift */,
 				7414C483272F004800FFC899 /* FavoritesViewController.swift */,
 				7414C485272F005D00FFC899 /* DetailsViewController.swift */,
+				74BEF599273085240068109E /* DetailsInfoView.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		74BEF5922730640C0068109E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				74BEF593273064250068109E /* UIView.swift */,
+				74BEF59727307C8D0068109E /* UIColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,9 +188,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74BEF594273064250068109E /* UIView.swift in Sources */,
+				74BEF59827307C8D0068109E /* UIColor.swift in Sources */,
 				7414C47F272EFECC00FFC899 /* BaseCoordinator.swift in Sources */,
+				74BEF596273066F30068109E /* AppConfig.swift in Sources */,
 				7414C488272F00E200FFC899 /* CoordinatedViewController.swift in Sources */,
 				7414C486272F005D00FFC899 /* DetailsViewController.swift in Sources */,
+				74BEF59A273085240068109E /* DetailsInfoView.swift in Sources */,
 				7414C484272F004800FFC899 /* FavoritesViewController.swift in Sources */,
 				7414C47A272EFDA800FFC899 /* Coordinator.swift in Sources */,
 				7414C47D272EFE0200FFC899 /* AppCoordinator.swift in Sources */,

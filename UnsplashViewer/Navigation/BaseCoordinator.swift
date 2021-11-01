@@ -16,6 +16,8 @@ class BaseCoordinator: Coordinator {
     }
 
     func showDetailsScreen() {
-        navigationController.pushViewController(DetailsViewController(), animated: true)
+        let detailsVC = DetailsViewController()
+        detailsVC.title = "Author"
+        navigationController.pushViewController(detailsVC, animated: true)
     }
 }
