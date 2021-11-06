@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		514135D0F5DC3CC9BA3FE8BA /* Pods_UnsplashViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F300DB316C43F811269A9779 /* Pods_UnsplashViewer.framework */; };
 		7414C461272EFCD500FFC899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C460272EFCD500FFC899 /* AppDelegate.swift */; };
 		7414C463272EFCD500FFC899 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C462272EFCD500FFC899 /* SceneDelegate.swift */; };
 		7414C46A272EFCDD00FFC899 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7414C469272EFCDD00FFC899 /* Assets.xcassets */; };
@@ -18,10 +19,22 @@
 		7414C484272F004800FFC899 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C483272F004800FFC899 /* FavoritesViewController.swift */; };
 		7414C486272F005D00FFC899 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C485272F005D00FFC899 /* DetailsViewController.swift */; };
 		7414C488272F00E200FFC899 /* CoordinatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7414C487272F00E200FFC899 /* CoordinatedViewController.swift */; };
+		7420808927344958005B9C43 /* UnsplashApiAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7420808827344958005B9C43 /* UnsplashApiAdapter.swift */; };
+		742080902734705C005B9C43 /* PhotosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7420808F2734705C005B9C43 /* PhotosViewModel.swift */; };
+		7420809227355F5C005B9C43 /* UnsplashApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7420809127355F5C005B9C43 /* UnsplashApiError.swift */; };
+		742080942735601E005B9C43 /* UnsplashApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742080932735601E005B9C43 /* UnsplashApiResponse.swift */; };
+		74208096273571B9005B9C43 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74208095273571B9005B9C43 /* PhotosCollectionViewCell.swift */; };
+		7420809927358887005B9C43 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7420809827358887005B9C43 /* Credentials.swift */; };
+		7420809E27358D63005B9C43 /* DetailsCodableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7420809D27358D63005B9C43 /* DetailsCodableViewModel.swift */; };
+		742080A82735A3DB005B9C43 /* DetailsInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742080A72735A3DB005B9C43 /* DetailsInfoData.swift */; };
+		742080AA2736B8EE005B9C43 /* UnsplashSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742080A92736B8EE005B9C43 /* UnsplashSearchResult.swift */; };
+		742080AC2736C531005B9C43 /* PhotoFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742080AB2736C530005B9C43 /* PhotoFeed.swift */; };
 		74BEF594273064250068109E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF593273064250068109E /* UIView.swift */; };
 		74BEF596273066F30068109E /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF595273066F30068109E /* AppConfig.swift */; };
 		74BEF59827307C8D0068109E /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF59727307C8D0068109E /* UIColor.swift */; };
 		74BEF59A273085240068109E /* DetailsInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BEF599273085240068109E /* DetailsInfoView.swift */; };
+		74CE288227342F2700271EF3 /* UnsplashPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CE288127342F2700271EF3 /* UnsplashPhoto.swift */; };
+		74CE28842734349F00271EF3 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CE28832734349F00271EF3 /* String.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,10 +51,25 @@
 		7414C483272F004800FFC899 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		7414C485272F005D00FFC899 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		7414C487272F00E200FFC899 /* CoordinatedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatedViewController.swift; sourceTree = "<group>"; };
+		7420808827344958005B9C43 /* UnsplashApiAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashApiAdapter.swift; sourceTree = "<group>"; };
+		7420808F2734705C005B9C43 /* PhotosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewModel.swift; sourceTree = "<group>"; };
+		7420809127355F5C005B9C43 /* UnsplashApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashApiError.swift; sourceTree = "<group>"; };
+		742080932735601E005B9C43 /* UnsplashApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashApiResponse.swift; sourceTree = "<group>"; };
+		74208095273571B9005B9C43 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
+		7420809827358887005B9C43 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		7420809D27358D63005B9C43 /* DetailsCodableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCodableViewModel.swift; sourceTree = "<group>"; };
+		742080A72735A3DB005B9C43 /* DetailsInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsInfoData.swift; sourceTree = "<group>"; };
+		742080A92736B8EE005B9C43 /* UnsplashSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchResult.swift; sourceTree = "<group>"; };
+		742080AB2736C530005B9C43 /* PhotoFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoFeed.swift; sourceTree = "<group>"; };
 		74BEF593273064250068109E /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		74BEF595273066F30068109E /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		74BEF59727307C8D0068109E /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		74BEF599273085240068109E /* DetailsInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsInfoView.swift; sourceTree = "<group>"; };
+		74CE288127342F2700271EF3 /* UnsplashPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhoto.swift; sourceTree = "<group>"; };
+		74CE28832734349F00271EF3 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		C0A69B4F431B52BA1097AFF8 /* Pods-UnsplashViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashViewer.debug.xcconfig"; path = "Target Support Files/Pods-UnsplashViewer/Pods-UnsplashViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		DEB2588A1F189E0CD87D69C0 /* Pods-UnsplashViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UnsplashViewer.release.xcconfig"; path = "Target Support Files/Pods-UnsplashViewer/Pods-UnsplashViewer.release.xcconfig"; sourceTree = "<group>"; };
+		F300DB316C43F811269A9779 /* Pods_UnsplashViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UnsplashViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,17 +77,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				514135D0F5DC3CC9BA3FE8BA /* Pods_UnsplashViewer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		35CCDBECD79983AAA0B48782 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F300DB316C43F811269A9779 /* Pods_UnsplashViewer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7414C454272EFCD500FFC899 = {
 			isa = PBXGroup;
 			children = (
 				7414C45F272EFCD500FFC899 /* UnsplashViewer */,
 				7414C45E272EFCD500FFC899 /* Products */,
+				91D0C3D88067A0368FE7560A /* Pods */,
+				35CCDBECD79983AAA0B48782 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,8 +113,11 @@
 		7414C45F272EFCD500FFC899 /* UnsplashViewer */ = {
 			isa = PBXGroup;
 			children = (
+				7420809727358869005B9C43 /* Credentials */,
+				742080872734493C005B9C43 /* Services */,
 				7414C47B272EFDC200FFC899 /* Navigation */,
 				7414C480272EFFE000FFC899 /* UI */,
+				74CE287D27342C4900271EF3 /* Model */,
 				74BEF5922730640C0068109E /* Extensions */,
 				7414C460272EFCD500FFC899 /* AppDelegate.swift */,
 				7414C462272EFCD500FFC899 /* SceneDelegate.swift */,
@@ -101,12 +143,51 @@
 		7414C480272EFFE000FFC899 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				7414C481272F003000FFC899 /* PhotosViewController.swift */,
+				7420808E27346655005B9C43 /* Photos */,
 				7414C483272F004800FFC899 /* FavoritesViewController.swift */,
-				7414C485272F005D00FFC899 /* DetailsViewController.swift */,
-				74BEF599273085240068109E /* DetailsInfoView.swift */,
+				7420809A27358CCF005B9C43 /* Details */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		742080872734493C005B9C43 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7420808827344958005B9C43 /* UnsplashApiAdapter.swift */,
+				7420809127355F5C005B9C43 /* UnsplashApiError.swift */,
+				742080932735601E005B9C43 /* UnsplashApiResponse.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7420808E27346655005B9C43 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				7414C481272F003000FFC899 /* PhotosViewController.swift */,
+				7420808F2734705C005B9C43 /* PhotosViewModel.swift */,
+				742080AB2736C530005B9C43 /* PhotoFeed.swift */,
+				74208095273571B9005B9C43 /* PhotosCollectionViewCell.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		7420809727358869005B9C43 /* Credentials */ = {
+			isa = PBXGroup;
+			children = (
+				7420809827358887005B9C43 /* Credentials.swift */,
+			);
+			path = Credentials;
+			sourceTree = "<group>";
+		};
+		7420809A27358CCF005B9C43 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				7414C485272F005D00FFC899 /* DetailsViewController.swift */,
+				7420809D27358D63005B9C43 /* DetailsCodableViewModel.swift */,
+				74BEF599273085240068109E /* DetailsInfoView.swift */,
+				742080A72735A3DB005B9C43 /* DetailsInfoData.swift */,
+			);
+			path = Details;
 			sourceTree = "<group>";
 		};
 		74BEF5922730640C0068109E /* Extensions */ = {
@@ -114,8 +195,35 @@
 			children = (
 				74BEF593273064250068109E /* UIView.swift */,
 				74BEF59727307C8D0068109E /* UIColor.swift */,
+				74CE28832734349F00271EF3 /* String.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		74CE287D27342C4900271EF3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				74CE287E27342C5B00271EF3 /* Codable */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		74CE287E27342C5B00271EF3 /* Codable */ = {
+			isa = PBXGroup;
+			children = (
+				74CE288127342F2700271EF3 /* UnsplashPhoto.swift */,
+				742080A92736B8EE005B9C43 /* UnsplashSearchResult.swift */,
+			);
+			path = Codable;
+			sourceTree = "<group>";
+		};
+		91D0C3D88067A0368FE7560A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C0A69B4F431B52BA1097AFF8 /* Pods-UnsplashViewer.debug.xcconfig */,
+				DEB2588A1F189E0CD87D69C0 /* Pods-UnsplashViewer.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,9 +233,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7414C471272EFCDD00FFC899 /* Build configuration list for PBXNativeTarget "UnsplashViewer" */;
 			buildPhases = (
+				E8D6E4A0B65090468CA5E269 /* [CP] Check Pods Manifest.lock */,
 				7414C459272EFCD500FFC899 /* Sources */,
 				7414C45A272EFCD500FFC899 /* Frameworks */,
 				7414C45B272EFCD500FFC899 /* Resources */,
+				870F299A2393F730F5E68E9B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -183,24 +293,78 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		870F299A2393F730F5E68E9B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UnsplashViewer/Pods-UnsplashViewer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-UnsplashViewer/Pods-UnsplashViewer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UnsplashViewer/Pods-UnsplashViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E8D6E4A0B65090468CA5E269 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UnsplashViewer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		7414C459272EFCD500FFC899 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				74BEF594273064250068109E /* UIView.swift in Sources */,
+				74CE288227342F2700271EF3 /* UnsplashPhoto.swift in Sources */,
+				7420809227355F5C005B9C43 /* UnsplashApiError.swift in Sources */,
 				74BEF59827307C8D0068109E /* UIColor.swift in Sources */,
+				74208096273571B9005B9C43 /* PhotosCollectionViewCell.swift in Sources */,
+				742080942735601E005B9C43 /* UnsplashApiResponse.swift in Sources */,
 				7414C47F272EFECC00FFC899 /* BaseCoordinator.swift in Sources */,
 				74BEF596273066F30068109E /* AppConfig.swift in Sources */,
+				742080AA2736B8EE005B9C43 /* UnsplashSearchResult.swift in Sources */,
+				74CE28842734349F00271EF3 /* String.swift in Sources */,
 				7414C488272F00E200FFC899 /* CoordinatedViewController.swift in Sources */,
 				7414C486272F005D00FFC899 /* DetailsViewController.swift in Sources */,
 				74BEF59A273085240068109E /* DetailsInfoView.swift in Sources */,
+				742080AC2736C531005B9C43 /* PhotoFeed.swift in Sources */,
+				7420808927344958005B9C43 /* UnsplashApiAdapter.swift in Sources */,
 				7414C484272F004800FFC899 /* FavoritesViewController.swift in Sources */,
+				7420809927358887005B9C43 /* Credentials.swift in Sources */,
 				7414C47A272EFDA800FFC899 /* Coordinator.swift in Sources */,
 				7414C47D272EFE0200FFC899 /* AppCoordinator.swift in Sources */,
 				7414C482272F003000FFC899 /* PhotosViewController.swift in Sources */,
+				7420809E27358D63005B9C43 /* DetailsCodableViewModel.swift in Sources */,
+				742080902734705C005B9C43 /* PhotosViewModel.swift in Sources */,
 				7414C461272EFCD500FFC899 /* AppDelegate.swift in Sources */,
 				7414C463272EFCD500FFC899 /* SceneDelegate.swift in Sources */,
+				742080A82735A3DB005B9C43 /* DetailsInfoData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +500,7 @@
 		};
 		7414C472272EFCDD00FFC899 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0A69B4F431B52BA1097AFF8 /* Pods-UnsplashViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -363,6 +528,7 @@
 		};
 		7414C473272EFCDD00FFC899 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEB2588A1F189E0CD87D69C0 /* Pods-UnsplashViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

@@ -37,6 +37,7 @@ class DetailsInfoView: UIView {
         label.toAutoLayout()
         label.font = AppConfig.Font.secondary
         label.textAlignment = .center
+        label.numberOfLines = 0
         return label
     }()
 
@@ -51,7 +52,7 @@ class DetailsInfoView: UIView {
     }
 
     // MARK: - Public API
-    func configure(with image: UIImage, text: String) {
+    func configure(with image: UIImage?, text: String) {
         imageView.image = image
         label.text = text
     }
@@ -71,7 +72,9 @@ class DetailsInfoView: UIView {
             container.topAnchor.constraint(equalTo: topAnchor, constant: inset),
             container.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
             container.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -inset),
-            container.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset)
+            container.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset),
+
+            imageView.heightAnchor.constraint(equalToConstant: 19)
         ]
 
         NSLayoutConstraint.activate(constraints)

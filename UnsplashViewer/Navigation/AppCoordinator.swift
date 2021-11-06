@@ -6,17 +6,23 @@
 //
 
 import UIKit
+import AlamofireImage
 
-final class AppCoordinator: Coordinator {
+final class AppCoordinator {
 
     var childCoordinators: [Coordinator] = []
     var viewControllers: [UIViewController] = []
 
     let tabBarController = UITabBarController()
+    private let apiAdapter = UnsplashApiAdapter()
+    private let imageDownloader = ImageDownloader()
 
     func start() {
+        let photosViewModel = PhotosViewModel(adapter: apiAdapter)
+        let photosViewController = PhotosViewController(viewModel: photosViewModel)
+        photosViewModel.viewInput = photosViewController
         configureModule(
-            rootController: PhotosViewController(),
+            rootController: photosViewController,
             title: "Unsplash",
             tabImage: UIImage(named: "TabIcon"))
 
@@ -32,7 +38,11 @@ final class AppCoordinator: Coordinator {
         let navigationController = UINavigationController(rootViewController: rootController)
         navigationController.navigationBar.prefersLargeTitles = true
 
-        let coordinator = BaseCoordinator(navigationController: navigationController)
+        let coordinator = BaseCoordinator(
+            navigationController: navigationController,
+            apiAdapter: apiAdapter,
+            imageDownloader: imageDownloader)
+
         childCoordinators.append(coordinator)
 
         rootController.coordinator = coordinator

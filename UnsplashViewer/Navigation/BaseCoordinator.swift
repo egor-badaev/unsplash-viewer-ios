@@ -6,18 +6,24 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class BaseCoordinator: Coordinator {
-    var childCoordinators: [Coordinator] = []
-    private let navigationController: UINavigationController
+    
+    let navigationController: UINavigationController
+    let apiAdapter: UnsplashApiAdapter
+    let imageDownloader: ImageDownloader
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, apiAdapter: UnsplashApiAdapter, imageDownloader: ImageDownloader) {
         self.navigationController = navigationController
+        self.apiAdapter = apiAdapter
+        self.imageDownloader = imageDownloader
     }
 
-    func showDetailsScreen() {
-        let detailsVC = DetailsViewController()
-        detailsVC.title = "Author"
+    func showDetailsScreen(photo: UnsplashPhoto) {
+        let detailsVM = DetailsCodableViewModel(photo: photo, adapter: apiAdapter, imageDownloader: imageDownloader)
+        let detailsVC = DetailsViewController(viewModel: detailsVM)
+        detailsVM.viewInput = detailsVC
         navigationController.pushViewController(detailsVC, animated: true)
     }
 }

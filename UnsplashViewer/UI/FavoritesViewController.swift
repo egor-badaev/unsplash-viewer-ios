@@ -39,8 +39,6 @@ class FavoritesViewController: CoordinatedViewController {
 
         view.addSubview(tableView)
 
-        let safeArea = view.safeAreaLayoutGuide
-
         let constraints = [
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -82,7 +80,7 @@ extension FavoritesViewController: UITableViewDataSource {
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let coordinator = coordinator as? BaseCoordinator else { return }
-        coordinator.showDetailsScreen()
+//        coordinator.showDetailsScreen()
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -31,4 +31,9 @@ enum AppConfig {
         static let accent: UIColor = UIColor(named: "AccentColor") ?? .label
         static let favorites: UIColor = UIColor(named: "FavoritesColor") ?? #colorLiteral(red: 0.9450980392, green: 0.3176470588, blue: 0.3176470588, alpha: 1)
     }
+
+    enum API {
+        // TODO: make this dependable on device (more for iPads)
+        static let perPage: Int = 24
+    }
 }

@@ -6,7 +6,11 @@
 //
 
 import UIKit
+import AlamofireImage
 
 protocol Coordinator: AnyObject {
-    var childCoordinators: [Coordinator] { get set }
+    var navigationController: UINavigationController { get }
+    var apiAdapter: UnsplashApiAdapter { get }
+    var imageDownloader: ImageDownloader { get }
+    func showDetailsScreen(photo: UnsplashPhoto)
 }

@@ -6,6 +6,21 @@
 //
 
 import UIKit
+import AlamofireImage
+
+protocol DetailsViewControllerOutput {
+    var author: String { get }
+    var imagePlaceholderURL: URL { get }
+    var description: String? { get }
+    var imageAspectRatio: CGFloat { get }
+    func fetchDetails()
+}
+
+protocol DetailsViewControllerInput: AnyObject {
+    func didFetchInfo(infoData: [DetailsInfoData])
+    func didFetchPhoto(image: UIImage)
+    func didFailFetch(description: String)
+}
 
 class DetailsViewController: CoordinatedViewController {
 
@@ -15,6 +30,8 @@ class DetailsViewController: CoordinatedViewController {
             configureFavoritesButton()
         }
     }
+
+    private let viewModel: DetailsViewControllerOutput
 
     // MARK: - Subviews
     private let scrollView: UIScrollView = {
@@ -46,25 +63,26 @@ class DetailsViewController: CoordinatedViewController {
         return container
     }()
 
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
 
         imageView.toAutoLayout()
         imageView.contentMode = .scaleAspectFit
 
-        let placeholder = UIColor.systemGray4.image()
-        imageView.image = placeholder
+        imageView.af.setImage(withURL: viewModel.imagePlaceholderURL)
 
         return imageView
     }()
 
-    private let label: UILabel = {
+    private lazy var label: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
 
         label.font = AppConfig.Font.primary
-        label.text = "Lorem ipsum dolor sit amet"
+        label.text = viewModel.description
         label.numberOfLines = 0
+
+        label.isHidden = true
         
         return label
     }()
@@ -85,16 +103,34 @@ class DetailsViewController: CoordinatedViewController {
         return item
     }()
 
+    private let activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.toAutoLayout()
+        activityIndicator.hidesWhenStopped = true
+        return activityIndicator
+    }()
+
     // MARK: - Life cycle
+    init(viewModel: DetailsViewControllerOutput) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureNavigationBar()
         configureViews()
+        viewModel.fetchDetails()
     }
 
-    // MARK: - Helper methods
+    // MARK: - UI Configuration
     private func configureNavigationBar() {
+        title = viewModel.author
         navigationItem.rightBarButtonItem = favoritesButton
         configureFavoritesButton()
     }
@@ -113,15 +149,8 @@ class DetailsViewController: CoordinatedViewController {
         container.addArrangedSubview(label)
         container.addArrangedSubview(infoView)
 
-        let mockData = InfoData.mock
+        view.addSubview(activityIndicator)
 
-        mockData.forEach { info in
-            let infoTile = DetailsInfoView()
-            infoTile.configure(with: info.image, text: info.text)
-            infoView.addArrangedSubview(infoTile)
-        }
-
-        let safeArea = view.safeAreaLayoutGuide
         let constraints = [
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
@@ -134,10 +163,14 @@ class DetailsViewController: CoordinatedViewController {
             container.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             container.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -(AppConfig.UI.horizontalInset * 2)),
 
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0),
-            infoView.heightAnchor.constraint(equalToConstant: 73)
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: viewModel.imageAspectRatio),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: infoView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: infoView.centerYAnchor)
         ]
         NSLayoutConstraint.activate(constraints)
+
+        activityIndicator.startAnimating()
     }
 
     // MARK: - Actions
@@ -147,14 +180,24 @@ class DetailsViewController: CoordinatedViewController {
     
 }
 
-// MARK: - Mock data
-struct InfoData {
-    let image: UIImage
-    let text: String
+// MARK: - DetailsViewControllerInput
+extension DetailsViewController: DetailsViewControllerInput {
+    func didFetchInfo(infoData: [DetailsInfoData]) {
 
-    static let mock = [
-        InfoData(image: UIImage(systemName: "calendar")!, text: "Dec 12, 2021"),
-        InfoData(image: UIImage(systemName: "mappin.and.ellipse")!, text: "Moscow, RU"),
-        InfoData(image: UIImage(systemName: "square.and.arrow.down")!, text: "160 000")
-    ]
+        activityIndicator.stopAnimating()
+
+        infoData.forEach { info in
+            let infoTile = DetailsInfoView()
+            infoTile.configure(with: info.image, text: info.text)
+            self.infoView.addArrangedSubview(infoTile)
+        }
+    }
+
+    func didFetchPhoto(image: UIImage) {
+        imageView.image = image
+    }
+
+    func didFailFetch(description: String) {
+        showError(message: description)
+    }
 }
