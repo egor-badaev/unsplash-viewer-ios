@@ -126,7 +126,7 @@ extension PhotosViewController: UICollectionViewDataSource {
             cell.configure(with: .nothing)
         } else {
             let photo = viewModel.photo(for: indexPath)
-            cell.configure(with: .image(photo.thumbnailURL))
+            cell.configure(with: .image(photo.thumbnailURL, photo.color))
         }
 
         return cell

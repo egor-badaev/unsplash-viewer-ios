@@ -13,7 +13,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     // MARK: - Helper types
     enum Configuration {
         case nothing
-        case image(URL)
+        case image(URL, UIColor)
     }
 
     // MARK: - Subviews
@@ -53,7 +53,8 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         switch configuration {
         case .nothing:
             toggleLoading(true)
-        case .image(let url):
+        case .image(let url, let backgroundColor):
+            contentView.backgroundColor = backgroundColor
             imageView.af.setImage(withURL: url, completion:  { [weak self] _ in
                 self?.toggleLoading(false)
             })
@@ -62,17 +63,17 @@ class PhotosCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Helper methods
     private func configureViews() {
-        addSubview(imageView)
-        addSubview(activityIndicator)
+        contentView.addSubview(imageView)
+        contentView.addSubview(activityIndicator)
 
         let constraints = [
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 
-            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: centerYAnchor)
+            activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ]
 
         NSLayoutConstraint.activate(constraints)
