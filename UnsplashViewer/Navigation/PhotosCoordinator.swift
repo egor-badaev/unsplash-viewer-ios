@@ -35,6 +35,7 @@ final class PhotosCoordinator: BaseCoordinator {
                                                        imageDownloader: imageDownloader,
                                                        favoritesManager: favoritesManager)
         let detailsViewController = DetailsViewController(viewModel: detailsViewModel)
+        detailsViewController.coordinator = self
         detailsViewModel.viewInput = detailsViewController
         navigationController.pushViewController(detailsViewController, animated: true)
     }

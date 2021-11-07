@@ -36,6 +36,7 @@ class FavoritesViewController: CoordinatedViewController {
     private let reuseID = String(describing: FavoritesTableViewCell.self)
     private let viewModel: FavoritesViewControllerOutput
     private var hasPendingUpdates = false
+    private var initialLoadComplete = false
 
     // MARK: - Subviews
     private lazy var tableView: UITableView = {
@@ -80,6 +81,8 @@ class FavoritesViewController: CoordinatedViewController {
 
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.initialLoadComplete = true
+                self.checkNoFavorites()
             }
         }
     }
@@ -90,6 +93,14 @@ class FavoritesViewController: CoordinatedViewController {
         if hasPendingUpdates {
             tableView.reloadData()
             hasPendingUpdates = false
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if initialLoadComplete {
+            checkNoFavorites()
         }
     }
 
@@ -106,6 +117,17 @@ class FavoritesViewController: CoordinatedViewController {
         ]
 
         NSLayoutConstraint.activate(constraints)
+    }
+
+    private func checkNoFavorites() {
+        if viewModel.numberOfRows == 0 {
+            let alertAction = UIAlertAction(title: "Show me", style: .default) { [weak self] _ in
+                guard let self = self,
+                      let coordinator = self.coordinator as? FavoritesCoordinator else { return }
+                coordinator.transitionToPhotos()
+            }
+            showAlert(title: "No favorites here", message: "It looks like you don't have any favorites yet. Time to add some on the main screen!", actions: [alertAction])
+        }
     }
 
 }

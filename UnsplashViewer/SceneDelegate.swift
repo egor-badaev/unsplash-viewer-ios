@@ -22,9 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let window = window,
               let coordinator = coordinator else { return }
 
-        coordinator.start()
-        window.rootViewController = coordinator.tabBarController
-        window.makeKeyAndVisible()
+        coordinator.start(in: window)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

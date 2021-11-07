@@ -9,5 +9,6 @@ import UIKit
 import AlamofireImage
 
 protocol Coordinator: AnyObject {
+    var appCoordinator: AppCoordinator? { get set }
     var navigationController: UINavigationController { get }
 }

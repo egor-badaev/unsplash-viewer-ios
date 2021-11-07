@@ -11,21 +11,16 @@ import CoreData
 
 final class AppCoordinator {
 
-    var childCoordinators: [Coordinator] = []
-    var viewControllers: [UIViewController] = []
+    private var childCoordinators: [Coordinator] = []
+    private var viewControllers: [UIViewController] = []
 
-    let tabBarController = UITabBarController()
-//    private let apiAdapter = UnsplashApiAdapter()
+    private let tabBarController = UITabBarController()
     private let imageDownloader = ImageDownloader()
-//    private let imageDiskStorage = ImageDiskStorage()
-//    private let coreDataManager: CoreDataManager = {
-//        let coreDataManager = CoreDataManager(model: "LocalStorage")
-//        coreDataManager.context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-//        coreDataManager.backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-//        return coreDataManager
-//    }()
 
-    func start() {
+    func start(in window: UIWindow) {
+
+        window.rootViewController = tabBarController
+        window.makeKeyAndVisible()
 
         let coreDataManager = CoreDataManager(model: "LocalStorage")
         coreDataManager.context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -40,6 +35,7 @@ final class AppCoordinator {
         let photosCoordinator = PhotosCoordinator(navigationController: UINavigationController(),
                                                   favoritesmanager: favoritesManager)
         childCoordinators.append(photosCoordinator)
+        photosCoordinator.appCoordinator = self
         photosCoordinator.start()
 
         configureTab(for: photosCoordinator,
@@ -50,57 +46,26 @@ final class AppCoordinator {
         let favoritesCoordinator = FavoritesCoordinator(navigationController: UINavigationController(),
                                                         favoritesManager: favoritesManager)
         childCoordinators.append(favoritesCoordinator)
+        favoritesCoordinator.appCoordinator = self
         favoritesCoordinator.start()
 
         configureTab(for: favoritesCoordinator,
                         title: "Favorites",
                         tabImage: UIImage(systemName: "heart.fill"))
 
-//        let photosCoordinator = PhotosCoordinator(
-//        let photosViewModel = PhotosViewModel(adapter: apiAdapter)
-//        let photosViewController = PhotosViewController(viewModel: photosViewModel)
-//        photosViewModel.viewInput = photosViewController
-//        configureModule(
-//            rootController: photosViewController,
-//            title: "Unsplash",
-//            tabImage: UIImage(named: "TabIcon"))
-//
-//        let coreDataManager = FavoritesManager()
-//        let favoritesViewModel = FavoritesViewModel(coreDataManager: coreDataManager, imageDiskStorage: imageDiskStorage)
-//        configureModule(
-//            rootController: FavoritesViewController(),
-//            title: "Favorites",
-//            tabImage: UIImage(systemName: "heart.fill"))
-
         tabBarController.viewControllers = viewControllers
     }
 
-//    private func configureModule(rootController: CoordinatedViewController, title: String, tabImage: UIImage?) {
-//        let navigationController = UINavigationController(rootViewController: rootController)
-//        navigationController.navigationBar.prefersLargeTitles = true
-//
-//        let coordinator = BaseCoordinator(
-//            navigationController: navigationController,
-//            apiAdapter: apiAdapter,
-//            imageDownloader: imageDownloader)
-//
-//        childCoordinators.append(coordinator)
-//
-//        rootController.coordinator = coordinator
-//        rootController.title = title
-//
-//        let tabBarItem = UITabBarItem(title: title, image: tabImage, selectedImage: nil)
-//        navigationController.tabBarItem = tabBarItem
-//        viewControllers.append(navigationController)
-//    }
+    func showPhotos() {
+        tabBarController.selectedIndex = 0
+    }
 
-    func configureTab(for coordinator: Coordinator, title: String, tabImage: UIImage?) {
+    private func configureTab(for coordinator: Coordinator, title: String, tabImage: UIImage?) {
         let navigator = coordinator.navigationController
         navigator.navigationBar.prefersLargeTitles = true
         navigator.navigationItem.largeTitleDisplayMode = .always
         if let rootController = navigator.viewControllers.first {
             rootController.title = title
-//            rootController.navigationItem.largeTitleDisplayMode = .always
         }
         let tabBarItem = UITabBarItem(title: title, image: tabImage, selectedImage: nil)
         navigator.tabBarItem = tabBarItem

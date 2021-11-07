@@ -86,6 +86,11 @@ class UnsplashApiAdapter {
     }
 
     private func validateAndGetResponseData(response: AFDataResponse<Any>, completion: (Error) -> Void) -> (HTTPURLResponse, Data)? {
+        if case .failure(let error) = response.result {
+            completion(error)
+            return nil
+        }
+
         guard let httpURLResponse = response.response else {
             completion(UnsplashApiError.badResponse)
             return nil

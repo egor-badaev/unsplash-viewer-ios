@@ -69,6 +69,44 @@ class PhotosViewController: CoordinatedViewController {
         return activityIndicator
     }()
 
+    private lazy var emptyContainer: UIStackView = {
+        print(type(of: self), #function)
+        let emptyContainer = UIStackView()
+        emptyContainer.toAutoLayout()
+        emptyContainer.axis = .vertical
+        emptyContainer.spacing = 20
+
+        let emptyLabel: UILabel = {
+            let label = UILabel()
+            label.toAutoLayout()
+
+            label.numberOfLines = 0
+            label.font = AppConfig.Font.primary
+            label.text = "Failed to load data"
+            label.textAlignment = .center
+
+            return label
+        }()
+
+        emptyContainer.addArrangedSubview(emptyLabel)
+
+        let retryButton: UIButton = {
+            let button = UIButton(type: .system)
+            button.toAutoLayout()
+
+            button.setTitle("Retry", for: .normal)
+            button.addTarget(self, action: #selector(retryFetch(_:)), for: .touchUpInside)
+
+            return button
+        }()
+
+        emptyContainer.addArrangedSubview(retryButton)
+
+        return emptyContainer
+    }()
+
+    private var emptyViewIsSet = false
+
     // MARK: - Life cycle
     init(viewModel: PhotosViewControllerOutput){
         self.viewModel = viewModel
@@ -84,7 +122,11 @@ class PhotosViewController: CoordinatedViewController {
 
         configureNavigationBar()
         configureViews()
+        fetchData()
+    }
 
+    // MARK: - Data
+    private func fetchData() {
         activityIndicator.startAnimating()
         viewModel.fetchPhotos()
     }
@@ -112,6 +154,27 @@ class PhotosViewController: CoordinatedViewController {
         NSLayoutConstraint.activate(constraints)
     }
 
+    private func configureEmptyView() {
+        guard !emptyViewIsSet && collectionView.isHidden else { return }
+        view.addSubview(emptyContainer)
+        let constraints = [
+            emptyContainer.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: AppConfig.UI.horizontalInset),
+            emptyContainer.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            emptyContainer.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor)
+        ]
+        NSLayoutConstraint.activate(constraints)
+        emptyViewIsSet = true
+    }
+
+    private func setEmptyView(visible: Bool) {
+        guard emptyViewIsSet else { return }
+        emptyContainer.isHidden = !visible
+    }
+
+    // MARK: - Actions
+    @objc private func retryFetch(_ sender: UIButton) {
+        fetchData()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -203,12 +266,16 @@ extension PhotosViewController: PhotosViewControllerInput {
     }
 
     func didFailFetch(description: String) {
+        activityIndicator.stopAnimating()
+        configureEmptyView()
+        setEmptyView(visible: true)
         showError(message: description)
     }
 
     func didFetchPhotos(newIndexPaths: [IndexPath]?) {
         guard let newIndexPaths = newIndexPaths else {
             activityIndicator.stopAnimating()
+            setEmptyView(visible: false)
             collectionView.isHidden = false
             collectionView.reloadData()
             return

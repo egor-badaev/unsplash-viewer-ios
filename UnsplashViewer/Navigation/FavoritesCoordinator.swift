@@ -27,7 +27,12 @@ final class FavoritesCoordinator: BaseCoordinator {
     func showDetailsScreen(favoritePhoto: FavoritePhoto) {
         let detailsViewModel = DetailsCoreDataViewModel(photo: favoritePhoto, manager: favoritesManager)
         let detailsViewController = DetailsViewController(viewModel: detailsViewModel)
+        detailsViewController.coordinator = self
         detailsViewModel.viewInput = detailsViewController
         navigationController.pushViewController(detailsViewController, animated: true)
+    }
+
+    func transitionToPhotos() {
+        appCoordinator?.showPhotos()
     }
 }

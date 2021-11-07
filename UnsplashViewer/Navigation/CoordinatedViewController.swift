@@ -18,10 +18,16 @@ class CoordinatedViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
 
-    func showError(message: String) {
-        let alertVC = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertVC.addAction(okAction)
+    func showAlert(title: String, message: String, actions: [UIAlertAction]) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        actions.forEach { action in
+            alertVC.addAction(action)
+        }
         present(alertVC, animated: true, completion: nil)
+    }
+
+    func showError(message: String) {
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        showAlert(title: "Error", message: message, actions: [okAction])
     }
 }

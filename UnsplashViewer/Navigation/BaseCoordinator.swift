@@ -9,7 +9,8 @@ import UIKit
 import AlamofireImage
 
 class BaseCoordinator: Coordinator {
-    
+
+    weak var appCoordinator: AppCoordinator?
     let navigationController: UINavigationController
 
     init(navigationController: UINavigationController) {
