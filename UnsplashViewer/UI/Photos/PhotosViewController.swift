@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import AlamofireImage
 
 protocol PhotosViewControllerOutput {
     var numberOfItems: Int { get }
     var fetchedItems: Int { get }
+    var imageDownloader: ImageDownloader { get }
     func photo(for indexPath: IndexPath) -> UnsplashPhoto
     func fetchPhotos()
     func startSearch()
@@ -126,7 +128,7 @@ extension PhotosViewController: UICollectionViewDataSource {
             cell.configure(with: .nothing)
         } else {
             let photo = viewModel.photo(for: indexPath)
-            cell.configure(with: .image(photo.thumbnailURL, photo.color))
+            cell.configure(with: .image(photo, viewModel.imageDownloader))
         }
 
         return cell
@@ -174,7 +176,7 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let coordinator = coordinator as? BaseCoordinator else { return }
+        guard let coordinator = coordinator as? PhotosCoordinator else { return }
         coordinator.showDetailsScreen(photo: viewModel.photo(for: indexPath))
     }
 

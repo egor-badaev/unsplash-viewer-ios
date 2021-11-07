@@ -11,19 +11,9 @@ import AlamofireImage
 class BaseCoordinator: Coordinator {
     
     let navigationController: UINavigationController
-    let apiAdapter: UnsplashApiAdapter
-    let imageDownloader: ImageDownloader
 
-    init(navigationController: UINavigationController, apiAdapter: UnsplashApiAdapter, imageDownloader: ImageDownloader) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.apiAdapter = apiAdapter
-        self.imageDownloader = imageDownloader
     }
 
-    func showDetailsScreen(photo: UnsplashPhoto) {
-        let detailsVM = DetailsCodableViewModel(photo: photo, adapter: apiAdapter, imageDownloader: imageDownloader)
-        let detailsVC = DetailsViewController(viewModel: detailsVM)
-        detailsVM.viewInput = detailsVC
-        navigationController.pushViewController(detailsVC, animated: true)
-    }
 }

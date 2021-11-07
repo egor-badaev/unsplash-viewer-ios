@@ -10,27 +10,28 @@ import AlamofireImage
 
 protocol DetailsViewControllerOutput {
     var author: String { get }
-    var imagePlaceholderURL: URL { get }
     var description: String? { get }
     var imageAspectRatio: CGFloat { get }
+    var isFavorite: Bool { get }
+    func fetchThumbnail()
     func fetchDetails()
+    func checkFavorite()
+    func favoritesAction()
+    func didFinish()
 }
 
 protocol DetailsViewControllerInput: AnyObject {
+    func didFetchThumbnail(image: UIImage)
     func didFetchInfo(infoData: [DetailsInfoData])
     func didFetchPhoto(image: UIImage)
     func didFailFetch(description: String)
+    func didUpdateFavoriteIsUnavailable()
+    func didUpdateFavoriteStatus()
 }
 
 class DetailsViewController: CoordinatedViewController {
 
     // MARK: - Properties
-    private var isFavorite = false {
-        didSet {
-            configureFavoritesButton()
-        }
-    }
-
     private let viewModel: DetailsViewControllerOutput
 
     // MARK: - Subviews
@@ -68,8 +69,6 @@ class DetailsViewController: CoordinatedViewController {
 
         imageView.toAutoLayout()
         imageView.contentMode = .scaleAspectFit
-
-        imageView.af.setImage(withURL: viewModel.imagePlaceholderURL)
 
         return imageView
     }()
@@ -125,6 +124,22 @@ class DetailsViewController: CoordinatedViewController {
 
         configureNavigationBar()
         configureViews()
+        fetchData()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.checkFavorite()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.didFinish()
+    }
+
+    // MARK: - Data
+    private func fetchData() {
+        viewModel.fetchThumbnail()
         viewModel.fetchDetails()
     }
 
@@ -136,8 +151,9 @@ class DetailsViewController: CoordinatedViewController {
     }
 
     private func configureFavoritesButton() {
-        favoritesButton.image = UIImage(systemName: isFavorite ? "heart.fill" : "heart")
-        favoritesButton.tintColor = isFavorite ? AppConfig.Color.favorites : AppConfig.Color.accent
+
+        favoritesButton.image = UIImage(systemName: viewModel.isFavorite ? "heart.fill" : "heart")
+        favoritesButton.tintColor = viewModel.isFavorite ? AppConfig.Color.favorites : AppConfig.Color.accent
     }
 
     private func configureViews() {
@@ -175,13 +191,17 @@ class DetailsViewController: CoordinatedViewController {
 
     // MARK: - Actions
     @objc private func favoritesTapped(_ sender: UIBarButtonItem) {
-        isFavorite.toggle()
+        viewModel.favoritesAction()
     }
-    
 }
 
 // MARK: - DetailsViewControllerInput
 extension DetailsViewController: DetailsViewControllerInput {
+    func didFetchThumbnail(image: UIImage) {
+        guard imageView.image == nil else { return }
+        imageView.image = image
+    }
+
     func didFetchInfo(infoData: [DetailsInfoData]) {
 
         activityIndicator.stopAnimating()
@@ -199,5 +219,14 @@ extension DetailsViewController: DetailsViewControllerInput {
 
     func didFailFetch(description: String) {
         showError(message: description)
+    }
+
+    func didUpdateFavoriteIsUnavailable() {
+        navigationItem.rightBarButtonItem = nil
+        showError(message: "Adding to favorites is unavailable at this time")
+    }
+
+    func didUpdateFavoriteStatus() {
+        configureFavoritesButton()
     }
 }

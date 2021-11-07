@@ -1,0 +1,156 @@
+//
+//  CoreDataManager.swift
+//  UnsplashViewer
+//
+//  Created by Egor Badaev on 06.11.2021.
+//
+
+import Foundation
+import CoreData
+
+class CoreDataManager {
+
+    typealias CompletioHandler = (Bool, Error?) -> Void
+
+    enum ContextType {
+        case main
+        case background
+    }
+
+    private let model: String
+
+    init(model: String) {
+        self.model = model
+
+        defer {
+            /// Initialize container
+            let _ = persistentStoreContainer
+        }
+    }
+
+    lazy var persistentStoreContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: model)
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error {
+                // TODO: Show error to user, do not crash app
+                fatalError()
+            }
+        }
+        return container
+    }()
+
+    lazy var context: NSManagedObjectContext = {
+        return persistentStoreContainer.viewContext
+    }()
+
+    lazy var backgroundContext: NSManagedObjectContext = {
+        let context = persistentStoreContainer.newBackgroundContext()
+        return context
+    }()
+
+    func save() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // TODO: Notify user
+                print("Error saving context! ", error.localizedDescription)
+            }
+        }
+    }
+
+    func saveAsync(completion: CompletioHandler?) {
+        backgroundContext.perform { [weak self] in
+            guard let self = self else { return }
+            do {
+                try self.backgroundContext.save()
+                completion?(true, nil)
+            } catch {
+                print("Error saving background context! ", error.localizedDescription)
+                completion?(false, error)
+            }
+        }
+    }
+
+    func create<T: NSManagedObject> (from entity: T.Type, in contextType: ContextType = .main) -> T {
+        var context: NSManagedObjectContext
+        switch contextType {
+        case .main:
+            context = self.context
+        case .background:
+            context = backgroundContext
+        }
+        let object = NSEntityDescription.insertNewObject(forEntityName: String(describing: entity), into: context) as! T
+        return object
+    }
+
+    func delete(object: NSManagedObject) {
+        context.delete(object)
+        save()
+    }
+
+    func deleteAsync(object: NSManagedObject, with completion: CompletioHandler?) {
+        backgroundContext.perform { [weak self] in
+            guard let self = self else { return }
+            self.backgroundContext.delete(object)
+            self.saveAsync(completion: completion)
+        }
+    }
+
+    func fetchData<T: NSManagedObject> (for entity: T.Type, with predicate: NSPredicate? = nil) -> [T] {
+        guard let request = entity.fetchRequest() as? NSFetchRequest<T> else {
+            print("❗️ Cannot build NSFetchRequest")
+            return []
+        }
+
+        if let predicate = predicate {
+            request.predicate = predicate
+        }
+
+        do {
+            return try context.fetch(request)
+        } catch {
+            print("❗️", error.localizedDescription)
+            return []
+        }
+    }
+
+    func fetchDataAsync<T: NSManagedObject> (for entity: T.Type, with predicate: NSPredicate? = nil, completion: @escaping ([T], Error?) -> Void) {
+        guard let request = entity.fetchRequest() as? NSFetchRequest<T> else {
+            completion([], CoreDataError.fetchRequestError)
+            return
+        }
+
+        if let predicate = predicate {
+            request.predicate = predicate
+        }
+
+        backgroundContext.perform { [weak self] in
+            guard let self = self else { return }
+            do {
+                let results = try self.backgroundContext.fetch(request)
+                completion(results, nil)
+            } catch {
+                completion([], error)
+            }
+        }
+    }
+
+    func makeFetchedResultsController<T: NSManagedObject> (for entity: T.Type, in contextType: ContextType, sortingBy sortDescriptor: NSSortDescriptor, with predicate: NSPredicate?) -> NSFetchedResultsController<NSFetchRequestResult> {
+
+        let fetchRequest = entity.fetchRequest()
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+        let context: NSManagedObjectContext
+        switch contextType {
+        case .main:
+            context = self.context
+        case .background:
+            context = backgroundContext
+        }
+
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+
+        return fetchedResultsController
+    }
+}

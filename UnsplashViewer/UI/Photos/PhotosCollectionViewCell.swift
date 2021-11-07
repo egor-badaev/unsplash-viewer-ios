@@ -13,7 +13,7 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     // MARK: - Helper types
     enum Configuration {
         case nothing
-        case image(URL, UIColor)
+        case image(UnsplashPhoto, ImageDownloader)
     }
 
     // MARK: - Subviews
@@ -53,9 +53,10 @@ class PhotosCollectionViewCell: UICollectionViewCell {
         switch configuration {
         case .nothing:
             toggleLoading(true)
-        case .image(let url, let backgroundColor):
-            contentView.backgroundColor = backgroundColor
-            imageView.af.setImage(withURL: url, completion:  { [weak self] _ in
+        case .image(let photo, let imageDownloader):
+            contentView.backgroundColor = photo.color
+            imageView.af.imageDownloader = imageDownloader
+            imageView.af.setImage(withURL: photo.thumbnailURL, cacheKey: photo.thumbnailCacheKey, completion:  { [weak self] _ in
                 self?.toggleLoading(false)
             })
         }

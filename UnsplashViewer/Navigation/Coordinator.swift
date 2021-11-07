@@ -10,7 +10,4 @@ import AlamofireImage
 
 protocol Coordinator: AnyObject {
     var navigationController: UINavigationController { get }
-    var apiAdapter: UnsplashApiAdapter { get }
-    var imageDownloader: ImageDownloader { get }
-    func showDetailsScreen(photo: UnsplashPhoto)
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AlamofireImage
 
 class PhotosViewModel: PhotosViewControllerOutput {
 
@@ -32,6 +33,7 @@ class PhotosViewModel: PhotosViewControllerOutput {
     }
 
     private let adapter: UnsplashApiAdapter
+    let imageDownloader: ImageDownloader
 
     private let editorialFeed = PhotoFeed()
     private let searchFeed = PhotoFeed()
@@ -48,8 +50,9 @@ class PhotosViewModel: PhotosViewControllerOutput {
     private var searchQuery: String? = nil
 
     // MARK: - Initialization
-    init(adapter: UnsplashApiAdapter) {
+    init(adapter: UnsplashApiAdapter, imageDownloader: ImageDownloader) {
         self.adapter = adapter
+        self.imageDownloader = imageDownloader
     }
 
     // MARK: - Interface

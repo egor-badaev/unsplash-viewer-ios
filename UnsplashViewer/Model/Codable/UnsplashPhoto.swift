@@ -170,4 +170,13 @@ extension UnsplashPhoto {
     var fullPhotoURL: URL {
         self.urls.regular
     }
+
+    /// Cache keys for images
+    var thumbnailCacheKey: String {
+        "\(self.id).thumb"
+    }
+
+    var fullImageCacheKey: String {
+        "\(self.id).full"
+    }
 }
