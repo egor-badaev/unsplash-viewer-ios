@@ -71,7 +71,7 @@ class PhotosViewModel: PhotosViewControllerOutput {
             requestType = .search(query)
         }
 
-        adapter.fetchPhotos(for: requestType) { result in
+        adapter.fetchPhotos(for: requestType, page: currentFeed.currentPage) { result in
             switch result {
             case .failure(let error):
                 DispatchQueue.main.async {
