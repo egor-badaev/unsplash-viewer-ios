@@ -47,7 +47,11 @@ class PhotosViewModel: PhotosViewControllerOutput {
         }
     }
     
-    private var searchQuery: String? = nil
+    private var searchQuery: String? = nil {
+        didSet {
+            searchFeed.reset()
+        }
+    }
 
     // MARK: - Initialization
     init(adapter: UnsplashApiAdapter, imageDownloader: ImageDownloader) {
@@ -103,7 +107,7 @@ class PhotosViewModel: PhotosViewControllerOutput {
     }
 
     func endSearch() {
-        resetSearch()
+        searchQuery = nil
         mode = .editorial
     }
 
@@ -113,18 +117,9 @@ class PhotosViewModel: PhotosViewControllerOutput {
     }
 
     // MARK: - Helper methods
-    private func handle(response: UnsplashApiResponse) {
-    }
-
     private func getUpdatedIndexPaths(with newPhotos: [UnsplashPhoto]) -> [IndexPath] {
         let startIndex = currentFeed.photos.count - newPhotos.count
         let endIndex = startIndex + newPhotos.count
         return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
     }
-
-    private func resetSearch() {
-        searchQuery = nil
-        searchFeed.reset()
-    }
-
 }

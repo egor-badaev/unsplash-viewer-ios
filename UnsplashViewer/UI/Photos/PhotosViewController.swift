@@ -316,7 +316,6 @@ extension PhotosViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let query = searchBar.text,
               query.count > 0 else {
-                  viewModel.endSearch()
                   return
               }
         viewModel.performSearch(query: query)
